@@ -1,0 +1,14 @@
+export  const AddTodo = (Todo) => {
+
+    fetch(`https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${Todo.id}.json`,{
+        method: 'PUT',
+        headers: {'content-type' : 'application/json'},
+        body: JSON.stringify(Todo),
+
+    }).then(()=> {
+        alert('success');
+    }).catch((err)=>{
+        alert(err)
+    })
+
+}
