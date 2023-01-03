@@ -28,7 +28,7 @@ e.preventDefault();
       body: JSON.stringify(Todo),
 
   }).then(()=> {
-      alert('success , Please Refresh the page to see the update');
+      alert('success');
       router.reload();
   }).catch((err)=>{
       alert(err)
