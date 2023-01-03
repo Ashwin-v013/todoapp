@@ -30,7 +30,7 @@ const AllTodos = () => {
             transformedData.push(productObj)
           }
           settodos(transformedData);
-        console.log(todos)
+        // console.log(todos)
 
         });
     }, []);

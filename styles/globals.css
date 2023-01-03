@@ -24,3 +24,8 @@ a {
     background: black;
   }
 }
+.editlink{
+  margin-left: 15px;
+  color: #6464ff;
+  text-decoration: underline;
+}
