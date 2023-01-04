@@ -11,7 +11,7 @@ const Edittodos = () => {
         status: '',
 
     })
-    console.log(edittodo)
+    // console.log(edittodo)
     const todoref = useRef();
     const statusRef = useRef();
     const Router = useRouter();

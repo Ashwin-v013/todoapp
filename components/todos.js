@@ -47,7 +47,7 @@ const AllTodos = () => {
        settodos(updatedTodos);
     })
  }
- console.log(todos.status)
+
    
        
     let jsx = (
