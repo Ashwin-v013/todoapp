@@ -37,13 +37,13 @@ const AllTodos = () => {
 
 
  const DeleteHandler = (id) => {
-    console.log('wf ' , id)
+    // console.log('wf ' , id)
     fetch(`https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${id}.json`,{
         method:'delete',
     }).then(() =>{
         // alert('success')
        const updatedTodos =   todos.filter((todo) => todo.id !== id);
-       console.log(updatedTodos)
+      //  console.log(updatedTodos)
        settodos(updatedTodos);
     })
  }
