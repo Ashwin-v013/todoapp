@@ -1,7 +1,6 @@
-import React, { useRef, useState } from 'react'
-import { Ref } from 'react';
+import React, {  useState } from 'react'
 import Router, { useRouter } from 'next/router';
-import { userAgentFromString } from 'next/server';
+i
 import { useEffect } from 'react';
 
 const Edittodos = () => {
@@ -12,8 +11,6 @@ const Edittodos = () => {
 
     })
     // console.log(edittodo)
-    const todoref = useRef();
-    const statusRef = useRef();
     const Router = useRouter();
     // console.log(Router.query.editid)
     // console.log(Router)
