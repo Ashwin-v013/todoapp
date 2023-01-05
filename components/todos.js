@@ -62,12 +62,12 @@ const AllTodos = () => {
      }
     if(currentfilter === 'completed'  && todos.length > 0  ) {
 
-        jsx = <Todoslist todos={todos.filter(todo => todo.status)} ondelete={DeleteHandler} />
+        jsx = <Todoslist todos={todos.filter(todo => todo.status == 1)} ondelete={DeleteHandler} />
        
      }
     if(currentfilter === 'active'  && todos.length > 0  ) {
 
-        jsx = <Todoslist todos={todos.filter(todo => !todo.status)} ondelete={DeleteHandler} />
+        jsx = <Todoslist todos={todos.filter(todo => todo.status == 0)} ondelete={DeleteHandler} />
        
      }
      if(todos.length === 0) {

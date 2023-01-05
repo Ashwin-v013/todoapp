@@ -1,6 +1,6 @@
 import React, {  useState } from 'react'
 import Router, { useRouter } from 'next/router';
-i
+
 import { useEffect } from 'react';
 
 const Edittodos = () => {
@@ -71,8 +71,8 @@ const Edittodos = () => {
              <label htmlFor='edittodo'>Edit Todo</label>
             <input name='todo' id='edittodo' onChange={changeHandler} defaultValue={edittodo.todo} placeholder/>
             <select name='status' onChange={changeHandler} defaultValue={edittodo.status} >
-                <option  value={false}>Active</option>
-                <option value={true}>Completed</option>
+                <option  value={0}>Active</option>
+                <option value={1}>Completed</option>
             </select>
             <button type='submit'>Submit</button>
         </form>
