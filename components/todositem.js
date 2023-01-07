@@ -4,7 +4,8 @@ import Link from 'next/link';
 const Todositem = ({key , id , todo , status , ondelete}) => {
   return (
     <>
-        <li key={id} >{todo} 
+        <li key={id} >
+         <p className='todoname'>{todo} </p>
         <Link   href={`/edit/${id}`} >
         <a className='editlink' >Edit</a>
         </Link>

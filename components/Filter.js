@@ -8,17 +8,17 @@ const Filter = (props) => {
   const dispatch = useDispatch();
    
  const  completehandler =() =>{
-  dispatch(statusActions.completestatus('completed'))
+  dispatch(statusActions.completestatus('Completed'))
 
  }
  function activehandler(){
-  dispatch(statusActions.activestatus('active'))
+  dispatch(statusActions.activestatus('Active'))
 
 
  }
  function defaulthandler(){
 
-  dispatch(statusActions.defaultstatus('all'))
+  dispatch(statusActions.defaultstatus('All'))
 
 
  }

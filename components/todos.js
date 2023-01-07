@@ -7,10 +7,14 @@ import { useSelector , useDispatch } from "react-redux";
 import { statusActions } from "../store/store";
 import Notification from "./notification";
 import { fetchtodo } from "../store/store";
+import { useRouter } from "next/router";
+
 
 // let isinitial = true;
 
 const AllTodos = () => {
+
+    const router =useRouter();
    
     const currentfilter = useSelector( state => state.filter);
     const notification = useSelector(state => state.notification)
@@ -19,36 +23,20 @@ const AllTodos = () => {
 
      const dispatch = useDispatch();
 
-    console.log(todos)
+
 
     useEffect(() => {
+      let isinitial = true
+      if(isinitial){
     dispatch(fetchtodo())
+      }
+      router.push('/');
+
+    return() => {
+        isinitial=false
+    }
      
     }, [])
-    
-
-    // useEffect(() => {
-    //   fetch(
-    //     "https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos.json"
-    //   )
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       const transformedData =[];
-  
-    //       for(const key in data){
-    //         const productObj={
-    //           id : key,
-    //           ...data[key]
-    //         }
-    //         transformedData.push(productObj)
-    //       }
-    //       settodos(transformedData);
-    //       // console.log(todos)
-          
-    //     });
-    //   }, []);
-      
-      console.log(todos)
 
       
       const DeleteHandler = (id) => {
@@ -59,48 +47,29 @@ const AllTodos = () => {
        const updatedTodos =   todos.filter((todo) => todo.id !== id);
       dispatch(statusActions.notification({
           status : "deleted",
-          message : "todo deleted"
+          error : "Todo Deleted",
         }));
        dispatch(statusActions.addtodo(updatedTodos));     
     })
   
  }
-
-//  var notifyjsx ;
-//  useEffect(() => {
-//   notifyjsx=  notification && timeout && <Notification title={notification.status} message={notification.message}/> 
-//     dispatch(statusActions.timeout(true))
-//     let timer = setTimeout(() => notifyjsx , 1000 );
-//     dispatch(statusActions.timeout(false))
-
-//     return () => {
-//       clearTimeout(timer)  
-//     } 
-
-//  },[notification])
-
- 
-
-
-   
-   
-       
+  
     let jsx = (
         <Todoslist todos={todos} ondelete={DeleteHandler} />
 
     )
 
-    if(currentfilter === 'all'  && todos.length > 0  ) {
+    if(currentfilter === 'All'  && todos.length > 0  ) {
 
         jsx = <Todoslist todos={todos} ondelete={DeleteHandler} />
        
      }
-    if(currentfilter === 'completed'  && todos.length > 0  ) {
+    if(currentfilter === 'Completed'  && todos.length > 0  ) {
 
         jsx = <Todoslist todos={todos.filter(todo => todo.status == true)} ondelete={DeleteHandler} />
        
      }
-    if(currentfilter === 'active'  && todos.length > 0  ) {
+    if(currentfilter === 'Active'  && todos.length > 0  ) {
 
         jsx = <Todoslist todos={todos.filter(todo => todo.status == false)} ondelete={DeleteHandler} />
        
@@ -113,11 +82,11 @@ const AllTodos = () => {
   return (
 
 <> 
- { notification && <Notification title={notification.status} message={notification.message}/> }
+ {/* { notification && <Notification title={notification.status} message={notification.error}/> } */}
 {/* {notifyjsx} */}
 <Filter  />
 
-   <p>{currentfilter} todos are listed below:</p>
+   <p className="Status">{currentfilter} todos are listed below:</p>
   
     <ul>
       {jsx}

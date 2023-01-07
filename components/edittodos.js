@@ -14,11 +14,11 @@ const Edittodos = () => {
     
   })
   const dispatch = useDispatch()
+
   const message = useSelector(state => state.message)
-    // console.log(edittodo)
+
     const Router = useRouter();
-    // console.log(Router.query.editid)
-    // console.log(Router)
+
      const routerID =Router.query.editid;
 
 
@@ -69,8 +69,12 @@ const Edittodos = () => {
         }),
 
     }).then(() => {
-      
-        alert('You successfully changed todo status')
+      dispatch(statusActions.notification({
+        status : 'Edited',
+        error: 'Todo Edited Successfull'
+
+      }))
+        // alert('You successfully changed todo status')
         Router.push('/')
     })
 
@@ -78,9 +82,9 @@ const Edittodos = () => {
      
    }
 
-  return (
+  return (  
     <>
-    { message  == 0 ? <p> Status -  Active  </p> : <p>Status -  Completed</p> }
+    { message  == 0 ? <p className='activewarning'> Status -  Active  </p> : <p className='completedsuccess'>Status -  Completed</p> }
         <form onSubmit={submitHandler}>
              <label htmlFor='edittodo'>Edit Todo</label>
             <input name='todo' id='edittodo' onChange={changeHandler} defaultValue={edittodo.todo} />

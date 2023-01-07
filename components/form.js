@@ -11,7 +11,7 @@ import { sendFormData } from '../store/store';
 const Addform = () => {
 
   // const[Todo , setTodo] = useState('')
-  const router = useRouter();
+  var router = useRouter();
   const taskRef = useRef();
   const dispatch = useDispatch();
 
@@ -30,17 +30,16 @@ e.preventDefault();
     status: false,
   }
  dispatch(sendFormData(Todo))
-
- if(notification.status ==="success"){
-  console.log('post')
-   router.reload();
- }
-
+//  console.log(notification.status)
   }
+  // if(notification.status){
+  //   console.log('post')
+  //   //  router.reload();
+  //  }
 
   return (
     <>  
-    {notification  && <Notification title={notification.status} message={notification.error} />}
+    {/* {notification  && <Notification title={notification.status} message={notification.error} />} */}
      <div>
     <form onSubmit={SubmitHandler}>
     <label htmlFor='task'>Task</label>
