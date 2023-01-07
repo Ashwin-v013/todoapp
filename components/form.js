@@ -1,23 +1,21 @@
 import React, { useState } from 'react'
 import { useRef } from 'react';
 import { AddTodo } from '../helper/helper';
-import {Router, useRouter} from 'next/router';
+import {useRouter} from 'next/router';
 import { statusActions } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import Notification from './notification';
-import { sendFormData } from '../store/store';
+
 
 
 const Addform = () => {
 
-  // const[Todo , setTodo] = useState('')
+  // const[Todo , setTodo] = useState('');
   var router = useRouter();
   const taskRef = useRef();
   const dispatch = useDispatch();
 
   const notification = useSelector( state => state.notification);
   // const todos = useSelector( state => state.todo);
-
  
   const SubmitHandler = (e) => {
 e.preventDefault();
@@ -29,17 +27,28 @@ e.preventDefault();
     todo : EnteredTask,
     status: false,
   }
- dispatch(sendFormData(Todo))
-//  console.log(notification.status)
-  }
-  // if(notification.status){
-  //   console.log('post')
-  //   //  router.reload();
-  //  }
+
+  fetch(`https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${Todo.id}.json`,{
+    method: 'PUT',
+    headers: {'content-type' : 'application/json'},
+    body: JSON.stringify(Todo),
+
+}).then(()=> {
+  router.reload();
+   dispatch(statusActions.notification({
+    status : 'success',
+    error : 'Todo added suucessfull'
+   }))
+}).catch((err)=>{
+    alert(err)
+})
+ 
+
+}
 
   return (
     <>  
-    {/* {notification  && <Notification title={notification.status} message={notification.error} />} */}
+
      <div>
     <form onSubmit={SubmitHandler}>
     <label htmlFor='task'>Task</label>

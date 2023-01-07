@@ -8,6 +8,7 @@ import { statusActions } from "../store/store";
 import Notification from "./notification";
 import { fetchtodo } from "../store/store";
 import { useRouter } from "next/router";
+import Router from "next/router";
 
 
 // let isinitial = true;
@@ -15,30 +16,23 @@ import { useRouter } from "next/router";
 const AllTodos = () => {
 
     const router =useRouter();
+    const [Route , setRoute] = useState(false)
    
     const currentfilter = useSelector( state => state.filter);
     const notification = useSelector(state => state.notification)
-    const timeout = useSelector(state => state.timeout)
     const todos = useSelector(state => state.todo)
 
      const dispatch = useDispatch();
 
-
+   
 
     useEffect(() => {
-      let isinitial = true
-      if(isinitial){
-    dispatch(fetchtodo())
-      }
-      router.push('/');
+    dispatch(fetchtodo()) 
 
-    return() => {
-        isinitial=false
-    }
-     
-    }, [])
+  }, [])
+  
+  // if(notification.status === 'success'){
 
-      
       const DeleteHandler = (id) => {
       
     fetch(`https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${id}.json`,{
@@ -77,6 +71,8 @@ const AllTodos = () => {
      if(todos.length === 0) {
         jsx = 'no post'
     }
+
+    
     
        
   return (
