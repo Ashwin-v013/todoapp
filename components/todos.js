@@ -61,7 +61,7 @@ const AllTodos = () => {
           status : "deleted",
           message : "todo deleted"
         }));
-       dispatch.(updatedTodos);     
+       dispatch(statusActions.addtodo(updatedTodos));     
     })
   
  }
