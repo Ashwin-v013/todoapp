@@ -3,68 +3,86 @@ import Filter from "./Filter";
 import Todoslist from "./todoslist";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
+import { statusActions } from "../store/store";
+import Notification from "./notification";
+import { fetchtodo } from "../store/store";
 
 // let isinitial = true;
 
 const AllTodos = () => {
-    const [todos, settodos] = useState([]);
-    // const [currentfilter , setcurrentfilter] = useState('all')
-
-    // const filterhandler = newfilter => {
-    //     setcurrentfilter(newfilter)
-    // }
    
-    const currentfilter = useSelector( state => state.filter)
-    console.log(currentfilter)
+    const currentfilter = useSelector( state => state.filter);
+    const notification = useSelector(state => state.notification)
+    const timeout = useSelector(state => state.timeout)
+    const todos = useSelector(state => state.todo)
 
+     const dispatch = useDispatch();
 
-    // useEffect(() =>{
-
-    //   console.log('useeffect')
-
-    //   return ()=>{
-    //       console.log('unmount')
-    //   }
-    // },[])
+    console.log(todos)
 
     useEffect(() => {
-      fetch(
-        "https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos.json"
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const transformedData =[];
+    dispatch(fetchtodo())
+     
+    }, [])
+    
+
+    // useEffect(() => {
+    //   fetch(
+    //     "https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos.json"
+    //   )
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       const transformedData =[];
   
-          for(const key in data){
-            const productObj={
-              id : key,
-              ...data[key]
-            }
-            transformedData.push(productObj)
-          }
-          settodos(transformedData);
-          // console.log(todos)
+    //       for(const key in data){
+    //         const productObj={
+    //           id : key,
+    //           ...data[key]
+    //         }
+    //         transformedData.push(productObj)
+    //       }
+    //       settodos(transformedData);
+    //       // console.log(todos)
           
-        });
-      }, []);
+    //     });
+    //   }, []);
       
       console.log(todos)
+
       
       const DeleteHandler = (id) => {
-        // console.log('wf ' , id)
+      
     fetch(`https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${id}.json`,{
         method:'delete',
     }).then(() =>{
-        // alert('success')
        const updatedTodos =   todos.filter((todo) => todo.id !== id);
-      //  console.log(updatedTodos)
-       settodos(updatedTodos);
+      dispatch(statusActions.notification({
+          status : "deleted",
+          message : "todo deleted"
+        }));
+       dispatch.(updatedTodos);     
     })
+  
  }
+
+//  var notifyjsx ;
+//  useEffect(() => {
+//   notifyjsx=  notification && timeout && <Notification title={notification.status} message={notification.message}/> 
+//     dispatch(statusActions.timeout(true))
+//     let timer = setTimeout(() => notifyjsx , 1000 );
+//     dispatch(statusActions.timeout(false))
+
+//     return () => {
+//       clearTimeout(timer)  
+//     } 
+
+//  },[notification])
 
  
 
+
+   
    
        
     let jsx = (
@@ -90,11 +108,13 @@ const AllTodos = () => {
      if(todos.length === 0) {
         jsx = 'no post'
     }
-       
+    
        
   return (
 
 <> 
+ { notification && <Notification title={notification.status} message={notification.message}/> }
+{/* {notifyjsx} */}
 <Filter  />
 
    <p>{currentfilter} todos are listed below:</p>
