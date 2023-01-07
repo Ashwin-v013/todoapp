@@ -13,8 +13,6 @@ import Router from "next/router";
 // let isinitial = true;
 
 const AllTodos = () => {
-  const router = useRouter();
-  const [Route, setRoute] = useState(false);
 
   const currentfilter = useSelector((state) => state.filter);
   const notification = useSelector((state) => state.notification);
@@ -26,7 +24,6 @@ const AllTodos = () => {
     dispatch(fetchtodo());
   }, []);
 
-  // if(notification.status === 'success'){
 
   const DeleteHandler = (id) => {
     fetch(
