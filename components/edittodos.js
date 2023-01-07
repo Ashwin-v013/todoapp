@@ -1,27 +1,40 @@
 import React, {  useState } from 'react'
 import Router, { useRouter } from 'next/router';
+import { useSelector ,useDispatch } from 'react-redux';
+import { statusActions } from '../store/store';
 
 import { useEffect } from 'react';
 
 const Edittodos = () => {
 
-    const [edittodo, setedittodo] = useState({
-        todo: '',
-        status: '',
-
-    })
+ 
+  const [edittodo, setedittodo] = useState({
+    todo: '',
+    status: '',
+    
+  })
+  const dispatch = useDispatch()
+  const message = useSelector(state => state.message)
     // console.log(edittodo)
     const Router = useRouter();
     // console.log(Router.query.editid)
     // console.log(Router)
      const routerID =Router.query.editid;
+
+
      const changeHandler = (e) => {
-        setedittodo({ 
-          ...edittodo,
-            [e.target.name] : e.target.value   // target value according to name of the input fields
+
+       
+       setedittodo({ 
+         
+         ...edittodo,
+         [e.target.name] : e.target.value  
         });
-        console.log(setedittodo);
+  
       };
+ 
+     dispatch(statusActions.message(edittodo.status))
+
 
     useEffect(() => { 
     
@@ -44,7 +57,7 @@ const Edittodos = () => {
    const submitHandler = (e) => {
     e.preventDefault();
    
-    // const editedstatus = statusRef.current.value
+
 
     fetch(`https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${Router.query.editid}.json` , {
         method: 'PATCH',
@@ -56,8 +69,8 @@ const Edittodos = () => {
         }),
 
     }).then(() => {
-        // console.log(edittodo)
-        alert('successfully edited');
+      
+        alert('You successfully changed todo status')
         Router.push('/')
     })
 
@@ -67,10 +80,12 @@ const Edittodos = () => {
 
   return (
     <>
+    { message  == 0 ? <p> Status -  Active  </p> : <p>Status -  Completed</p> }
         <form onSubmit={submitHandler}>
              <label htmlFor='edittodo'>Edit Todo</label>
-            <input name='todo' id='edittodo' onChange={changeHandler} defaultValue={edittodo.todo} placeholder/>
-            <select name='status' onChange={changeHandler} defaultValue={edittodo.status} >
+            <input name='todo' id='edittodo' onChange={changeHandler} defaultValue={edittodo.todo} />
+            <select name='status' onChange={changeHandler} value={edittodo.status}  >
+            <option value='Status' disabled>Status</option>
                 <option  value={0}>Active</option>
                 <option value={1}>Completed</option>
             </select>

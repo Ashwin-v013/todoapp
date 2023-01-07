@@ -14,7 +14,7 @@ const Addform = () => {
 e.preventDefault();
 
   const EnteredTask = taskRef.current.value;
-   let id = 1;
+  //  let id = 1;
   const Todo = {
     id:  Math.floor(Math.random() * 1000),
     todo : EnteredTask,
