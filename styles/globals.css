@@ -145,8 +145,18 @@ button {
   background: transparent;
   cursor: pointer;
 }
+button.active {
+  background-color: #fff;
+  color: #000;
+}
 
 button:hover{
   background: #fff;
+  color: #000;
+
+  
+}
+button.none {
+  background-color: transparent;
   color: #000;
 }

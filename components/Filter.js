@@ -1,8 +1,10 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { statusActions } from '../store/store';
 
 const Filter = (props) => {
+
+ const activestatus =  useSelector(state => state.filter)
 
 
   const dispatch = useDispatch();
@@ -23,14 +25,15 @@ const Filter = (props) => {
 
  }
 
+ 
 
   return (
 
 
     <nav>
-        <button onClick={defaulthandler}>all</button>
-        <button onClick={activehandler}>active</button>
-        <button onClick={completehandler}>completed</button>
+        <button className={(activestatus === 'All') ? 'active' : ''} onClick={defaulthandler}>all</button>
+        <button className={(activestatus === 'Active') ? 'active' : ''} onClick={activehandler}>active</button>
+        <button className={(activestatus === 'Completed') ? 'active' : ''} onClick={completehandler}>completed</button>
     </nav>
   )
 }
