@@ -15,11 +15,7 @@ const Notification = (props) => {
     if (props.title === 'success' || props.title === 'Edited') {
       specialClasses = classes.success;
     }
-    // if(props.title === 'Fetching' || props.title === 'fetched'){
-    //   return 
-    // }
-    
-  
+   
     const cssClasses = `${classes.notification} ${specialClasses}`;
  
     return (
