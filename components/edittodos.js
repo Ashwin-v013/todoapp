@@ -74,6 +74,7 @@ const Edittodos = () => {
         error: 'Todo Edited Successfull'
 
       }))
+      dispatch(statusActions.Isfetch(false))
         // alert('You successfully changed todo status')
         Router.push('/')
     })

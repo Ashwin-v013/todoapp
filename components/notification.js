@@ -5,7 +5,7 @@ import { useState , useEffect} from 'react';
 const Notification = (props) => {
 
 
-    const [alert , setAlert] = useState(true);
+    // const [alert , setAlert] = useState(true);
       
   let specialClasses = '';
 
@@ -15,18 +15,13 @@ const Notification = (props) => {
     if (props.title === 'success' || props.title === 'Edited') {
       specialClasses = classes.success;
     }
+    // if(props.title === 'Fetching' || props.title === 'fetched'){
+    //   return 
+    // }
     
   
     const cssClasses = `${classes.notification} ${specialClasses}`;
-    // useEffect(() => {
-    //     // when the component is mounted, the alert is displayed for 3 seconds
-    //     setTimeout(() => {
-    //       setAlert(false);
-    //     }, 1000);
-    //   }, []);     
-      
-    //   if(!alert) return;
-  
+ 
     return (
         <>
      <section className={cssClasses}>

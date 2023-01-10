@@ -5,8 +5,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/store";
-import Notification from "./notification";
 import { fetchtodo } from "../store/store";
+import LoadingSpinner from "./loadingSpinner";
+import Notification from "./notification";
 import { useRouter } from "next/router";
 import Router from "next/router";
 
@@ -17,6 +18,7 @@ const AllTodos = () => {
   const currentfilter = useSelector((state) => state.filter);
   const notification = useSelector((state) => state.notification);
   const todos = useSelector((state) => state.todo);
+  const isFetching = useSelector((state) => state.fetching)
 
   const dispatch = useDispatch();
 
@@ -39,11 +41,18 @@ const AllTodos = () => {
           error: "Todo Deleted",
         })
       );
+    
       dispatch(statusActions.addtodo(updatedTodos));
+      
     });
   };
 
   let jsx = <Todoslist todos={todos} ondelete={DeleteHandler} />;
+
+  if (todos.length === 0) {
+    jsx = "no post";
+  }
+
 
   if (currentfilter === "All" && todos.length > 0) {
     jsx = <Todoslist todos={todos} ondelete={DeleteHandler} />;
@@ -64,10 +73,7 @@ const AllTodos = () => {
       />
     );
   }
-  if (todos.length === 0) {
-    jsx = "no post";
-  }
-
+  
   return (
     <>
       {/* { notification && <Notification title={notification.status} message={notification.error}/> } */}
@@ -76,7 +82,10 @@ const AllTodos = () => {
 
       <p className="Status">{currentfilter} todos are listed below:</p>
 
-      <ul>{jsx}</ul>
+   {isFetching  && <LoadingSpinner/>  }
+   {todos && !isFetching && <ul>{jsx}</ul>}
+   
+
     </>
   );
 };

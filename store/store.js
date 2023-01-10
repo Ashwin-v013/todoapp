@@ -1,7 +1,8 @@
 
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice, configureStore  } from "@reduxjs/toolkit";
 
 const initialState = {
+  fetching : false,
   filter: "All",
   message: "",
   notification: null,
@@ -34,6 +35,9 @@ const statusSlice = createSlice({
     message(state, action) {
       state.message = action.payload;
     },
+    Isfetch(state ,action ){
+      state.fetching = action.payload
+    }
   },
 });
 
@@ -41,7 +45,10 @@ const statusSlice = createSlice({
 
 export const fetchtodo = () => {
   return async (dispatch) => {
+
     const fetchdata = async () => {
+      dispatch(statusActions.Isfetch(true))
+     
       const response = await fetch(
         "https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos.json"
       );
@@ -50,11 +57,9 @@ export const fetchtodo = () => {
         throw new Error("todo failed");
       }
 
-      // dispatch(statusActions.notification({
-      //   status : "success",
-      //   error : "todo sent successfully"
-      // }))
+      dispatch(statusActions.Isfetch(false))
 
+    
       const data = await response.json();
       
       const transformedData = [];
@@ -65,7 +70,7 @@ export const fetchtodo = () => {
         };
         transformedData.push(productObj);
       }
-   
+  
       return transformedData;
     };
 
