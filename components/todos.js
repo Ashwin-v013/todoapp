@@ -11,7 +11,7 @@ import Notification from "./notification";
 import { useRouter } from "next/router";
 import Router from "next/router";
 
-// let isinitial = true;
+
 
 const AllTodos = () => {
 
@@ -23,10 +23,13 @@ const AllTodos = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchtodo());
+
+
+      dispatch(fetchtodo());
+  
   }, []);
 
-
+ 
   const DeleteHandler = (id) => {
     fetch(
       `https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${id}.json`,
@@ -47,11 +50,9 @@ const AllTodos = () => {
     });
   };
 
-  let jsx = <Todoslist todos={todos} ondelete={DeleteHandler} />;
+  var jsx = <Todoslist todos={todos} ondelete={DeleteHandler} />;
 
-  if (todos.length === 0) {
-    jsx = "no post";
-  }
+
 
 
   if (currentfilter === "All" && todos.length > 0) {
@@ -73,6 +74,10 @@ const AllTodos = () => {
       />
     );
   }
+
+ 
+ 
+ 
   
   return (
     <>
@@ -84,6 +89,7 @@ const AllTodos = () => {
 
    {isFetching  && <LoadingSpinner/>  }
    {todos && !isFetching && <ul>{jsx}</ul>}
+
    
 
     </>
