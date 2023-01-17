@@ -16,7 +16,6 @@ import Router from "next/router";
 const AllTodos = () => {
 
   const currentfilter = useSelector((state) => state.filter);
-  const notification = useSelector((state) => state.notification);
   const todos = useSelector((state) => state.todo);
   const isFetching = useSelector((state) => state.fetching)
 

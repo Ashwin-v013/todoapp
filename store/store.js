@@ -54,14 +54,13 @@ export const fetchtodo = () => {
       );
 
       if (!response.ok) {
-        throw new Error("todo failed");
+        throw new Error("something failed");
       }
 
       dispatch(statusActions.Isfetch(false))
 
     
       const data = await response.json();
-      
       const transformedData = [];
       for (const key in data) {
         const productObj = {
@@ -77,7 +76,6 @@ export const fetchtodo = () => {
     try {
       const todofromdb = await fetchdata();
       dispatch(statusActions.addtodo(todofromdb));
-      // router.push('/')
     } catch (error) {
       alert(error);
     }

@@ -40,7 +40,7 @@ const Edittodos = () => {
     
         fetch(`https://todoapp-d91e4-default-rtdb.firebaseio.com/Todos/${routerID}.json`)  //this is Fetch Request call
         .then(response =>{
-          // console.log(response);
+        
           return response.json();
         }).then(data =>{
           setedittodo({
@@ -74,8 +74,6 @@ const Edittodos = () => {
         error: 'Todo Edited Successfull'
 
       }))
-      dispatch(statusActions.Isfetch(false))
-        // alert('You successfully changed todo status')
         Router.push('/')
     })
 
